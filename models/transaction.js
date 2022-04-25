@@ -20,6 +20,8 @@ const transactionSchema = new Schema(
   }
 );
 
+//create a transactions model using the transactionSchema
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
+//export the transaction model
 module.exports = Transaction;
