@@ -2,14 +2,14 @@
 let db;
 
 // establish a connection to IndexedDB database called 'Transaction' and set it to version 1
-const request = indexedDB.open("transaction", 1);
+const request = indexedDB.open("budget", 1);
 
 // this event will emit if the database version changes (nonexistant to version 1, v1 to v2, etc.)
 request.onupgradeneeded = function (event) {
   // save a reference to the database
   const db = event.target.result;
   // create an object store (table) called `Transaction`, set it to have an auto incrementing primary key of sorts
-  db.createObjectStore("transaction", { autoIncrement: true });
+  db.createObjectStore("new_transaction", { autoIncrement: true });
 };
 
 // upon a successful
@@ -43,9 +43,9 @@ function saveRecord(record) {
 
 function uploadTransaction() {
     // open a transaction on your db
-    const transaction = db.transaction(["transaction"], "readwrite");
+    const transaction = db.transaction(["new_transaction"], "readwrite");
     // access your object store
-    const store = transaction.objectStore("transaction");
+    const store = transaction.objectStore("new_transaction");
     // get all records from store and set to a variable
     const getAll = store.getAll();
 
@@ -64,14 +64,17 @@ function uploadTransaction() {
             .then(response => response.json())
             .then(() => {
                 // open one more transaction
-                const transaction = db.transaction(["transaction"], "readwrite");
+                const transaction = db.transaction(["new_transaction"], "readwrite");
                 // access the transaction object store
-                const store = transaction.objectStore("transaction");
+                const store = transaction.objectStore("new_transaction");
                 // clear all items in your store
                 store.clear();
 
                 alert('All saved transaction has been submitted!');
-            });
+            })
+            .catch(err => {
+              console.log(err);
+          });
         }
     };
 }

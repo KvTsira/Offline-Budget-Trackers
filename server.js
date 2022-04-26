@@ -1,3 +1,4 @@
+
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -18,7 +19,8 @@ app.use(express.static("public"));
 
 mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/transaction', {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true
 });
 
 // routes
