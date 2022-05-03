@@ -37,7 +37,7 @@ The budget tracker application allows for offline access and functionality. The 
  
  npm i
 
-## Installtion
+## Installation
 
  The user needs to be familiar with service workers, IndexedDB, MongoDB
   
